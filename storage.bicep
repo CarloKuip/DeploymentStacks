@@ -39,4 +39,17 @@ resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' ={
   }
 }
 
+resource blobService 'Microsoft.Storage/storageAccounts/blobServices@2022-09-01' ={
+  name: 'default'
+  parent: storage
+}
+
+resource container 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01' ={
+  name: 'incoming'
+  parent: blobService
+  properties:{
+    publicAccess: 'None'
+  }
+}
+
 output storageResourceId string = storage.id
