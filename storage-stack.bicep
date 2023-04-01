@@ -3,7 +3,7 @@ param targetRegion string
 param targetRegionShortName string
 
 resource mi 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-01-31-preview' ={
-  name: '${storageName}-Identity'
+  name: '${storageName}-${targetRegionShortName}-Identity'
   location: targetRegion
 }
 
@@ -21,6 +21,7 @@ module storage 'storage.bicep'={
   params:{
     storageName: storageName
     targetRegion: targetRegion
+    targetRegionShortName: targetRegionShortName
     keyVaultUri: kv.outputs.keyVaultUri
     keyEncryptionKeyName: kv.outputs.keyEncryptionKeyName
     managedIdentityName: mi.name

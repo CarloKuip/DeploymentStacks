@@ -1,5 +1,6 @@
 param storageName string
 param targetRegion string
+param targetRegionShortName string
 param managedIdentityName string
 param keyVaultUri string
 param keyEncryptionKeyName string
@@ -9,7 +10,7 @@ resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2022-
 }
 
 resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' ={
-  name: storageName
+  name: '${storageName}${targetRegionShortName}'
   kind: 'StorageV2'
   location: targetRegion
   sku: {
